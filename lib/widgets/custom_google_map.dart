@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../models/place_model.dart';
+
 class GoogleMapView extends StatefulWidget {
   const GoogleMapView({super.key});
 
@@ -11,41 +13,51 @@ class GoogleMapView extends StatefulWidget {
 class _GoogleMapViewState extends State<GoogleMapView> {
   late CameraPosition initialCameraPosition;
 
-  // late GoogleMapController googleMapController;
+  late GoogleMapController googleMapController;
 
   @override
   void initState() {
     initialCameraPosition = const CameraPosition(
-      target: LatLng(31.06341706114919, 31.40887747116393),
+      target: LatLng(
+        31.06341706114919,
+        31.40887747116393,
+      ),
       zoom: 16,
     );
+    initMarkers();
     super.initState();
   }
 
   //to change map style
-  // void initMapStyle() async {
-  //   var nightMapStyle = await DefaultAssetBundle.of(context)
-  //       .loadString("assets/map_styles/night_map_style.json");
-  //   googleMapController.setMapStyle(nightMapStyle);
-  // }
+  void initMapStyle() async {
+    var nightMapStyle = await DefaultAssetBundle.of(context).loadString(
+      "assets/map_styles/night_map_style.json",
+    );
+    googleMapController.setMapStyle(nightMapStyle);
+  }
 
-  // @override
-  // void dispose() {
-  //   googleMapController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    googleMapController.dispose();
+    super.dispose();
+  }
+
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         GoogleMap(
+          //for first camera open
           initialCameraPosition: initialCameraPosition,
           //to change map style
-          // onMapCreated: (controller) {
-          //   googleMapController = controller;
-          //   initMapStyle();
-          // },
+          onMapCreated: (controller) {
+            googleMapController = controller;
+            initMapStyle();
+          },
+          //for add markers
+          markers: markers,
           //to change my location
           // onMapCreated: (ctr) {
           //   ctr = googleMapController;
@@ -81,6 +93,31 @@ class _GoogleMapViewState extends State<GoogleMapView> {
         // ),
       ],
     );
+  }
+
+  //to add markers
+  void initMarkers() {
+    // var myMarker = Marker(
+    //   markerId: MarkerId(
+    //     "1",
+    //   ),
+    //   position: LatLng(
+    //     31.06341706114919,
+    //     31.40887747116393,
+    //   ),
+    // );
+    var myMarkers = places
+        .map(
+          (placeModel) => Marker(
+            markerId: MarkerId(placeModel.id.toString()),
+            position: placeModel.latLng,
+            infoWindow: InfoWindow(
+              title: placeModel.name,
+            ),
+          ),
+        )
+        .toSet();
+    markers.addAll(myMarkers);
   }
 }
 

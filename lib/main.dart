@@ -32,3 +32,6 @@ class TestGoogleMapsWithFlutter extends StatelessWidget {
 //request permission
 //get location
 //display
+
+//---------------------------------------
+

@@ -36,3 +36,8 @@ class TestGoogleMapsWithFlutter extends StatelessWidget {
 
 //---------------------------------------
 
+//text field --> listen to the text field --> Search place --> display results
+//create route
+
+
+

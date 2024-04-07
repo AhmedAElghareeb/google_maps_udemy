@@ -19,13 +19,15 @@ class _RouteTrackingViewState extends State<RouteTrackingView> {
   @override
   void initState() {
     initialCameraPosition = const CameraPosition(
-      target: LatLng(0, 0),
+      target: LatLng(0, 0)
     );
 
     locationService = LocationService();
 
     super.initState();
   }
+
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class _RouteTrackingViewState extends State<RouteTrackingView> {
           zoomControlsEnabled: false,
           //for first camera open
           initialCameraPosition: initialCameraPosition,
+          markers: markers,
           onMapCreated: (controller) {
             googleMapController = controller;
             updateCurrentLocation();
@@ -48,11 +51,18 @@ class _RouteTrackingViewState extends State<RouteTrackingView> {
     try {
       var locationData = await locationService.getLocation();
 
-      CameraPosition cameraPosition = CameraPosition(
-        target: LatLng(
-          locationData.latitude!,
-          locationData.longitude!,
+      LatLng currentPosition = LatLng(
+        locationData.latitude!,
+        locationData.longitude!,
+      );
+      Marker currentLocationMarker = Marker(
+        markerId: MarkerId(
+          "MyLocation",
         ),
+        position: currentPosition,
+      );
+      CameraPosition cameraPosition = CameraPosition(
+        target: currentPosition,
         zoom: 16,
       );
       googleMapController.animateCamera(
@@ -60,6 +70,8 @@ class _RouteTrackingViewState extends State<RouteTrackingView> {
           cameraPosition,
         ),
       );
+      markers.add(currentLocationMarker);
+      setState(() {});
     } on LocationServiceException catch (e) {
     } on LocationPermissionException catch (e) {
     } catch (e) {}

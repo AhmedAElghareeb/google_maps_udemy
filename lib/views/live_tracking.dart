@@ -73,12 +73,12 @@ class _LiveTrackingState extends State<LiveTracking> {
     await locationService.checkAndRequestLocationService();
     var hasPermission =
         await locationService.checkAndRequestLocationPermission();
-    if (hasPermission) {
-      locationService.getRealTimeLocation((locationData) {
-        setMyLocationMarker(locationData);
-        updateCamera(locationData);
-      });
-    } else {}
+    // if (hasPermission) {
+    //   locationService.getRealTimeLocation((locationData) {
+    //     setMyLocationMarker(locationData);
+    //     updateCamera(locationData);
+    //   });
+    // } else {}
   }
 
   void setMyLocationMarker(LocationData locationData) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_udemy/widgets/custom_google_map.dart';
-import 'package:google_maps_udemy/widgets/live_tracking.dart';
+import 'package:google_maps_udemy/views/custom_google_map.dart';
+import 'package:google_maps_udemy/views/live_tracking.dart';
+import 'package:google_maps_udemy/views/route_tracking.dart';
 
 void main() {
   runApp(const TestGoogleMapsWithFlutter());
@@ -14,7 +15,7 @@ class TestGoogleMapsWithFlutter extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter Google Map Test & Live Tracking & Route Tracking',
       debugShowCheckedModeBanner: false,
-      home: LiveTracking(),
+      home: RouteTrackingView(),
     );
   }
 }

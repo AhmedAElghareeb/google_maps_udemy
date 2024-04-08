@@ -1,19 +1,19 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class PlaceModel {
+class TrackingPlaceModel {
   final int id;
   final String name;
   final LatLng latLng;
 
-  PlaceModel({
+  TrackingPlaceModel({
     required this.id,
     required this.name,
     required this.latLng,
   });
 }
 
-List<PlaceModel> places = [
-  PlaceModel(
+List<TrackingPlaceModel> places = [
+  TrackingPlaceModel(
     id: 1,
     name: "معرض جدد وافرش بيتك",
     latLng: const LatLng(
@@ -21,7 +21,7 @@ List<PlaceModel> places = [
       31.409294777621582,
     ),
   ),
-  PlaceModel(
+  TrackingPlaceModel(
     id: 2,
     name: "مطبعة استار لايت",
     latLng: const LatLng(
@@ -29,7 +29,7 @@ List<PlaceModel> places = [
         31.407005790388748,
     ),
   ),
-  PlaceModel(
+  TrackingPlaceModel(
     id: 3,
     name: "Iphone Service",
     latLng: const LatLng(

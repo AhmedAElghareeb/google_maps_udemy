@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../models/place_model.dart';
+import '../models/tracking_places_model.dart';
 
 class GoogleMapView extends StatefulWidget {
   const GoogleMapView({super.key});
